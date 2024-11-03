@@ -1,0 +1,7 @@
+# values for DEMO {{ .Project }} console
+
+replicas: {{ .ConsoleVariables.replicas }}
+
+serverHost=artemis-main.{{ .Project }}-xibus-artemis
+port=62627
+

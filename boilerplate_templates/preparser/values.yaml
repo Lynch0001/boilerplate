@@ -1,0 +1,7 @@
+# values for DEMO {{ .Project }} preparser
+
+replicas: {{ .PreparserVariables.replicas }}
+
+serverHost=artemis-main.{{ .Project }}-xibus-artemis
+port=62627
+

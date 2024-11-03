@@ -1,0 +1,48 @@
+# Demo Vars Template
+
+# project name
+Project: bravo
+
+ArchiverVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+ConsoleVariables:
+  replicas: 1
+  deployBackup: false
+
+DatastoreVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+DeliverVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+InboundVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+ParserVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+PreparserVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+ResubmitVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
+RouterVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
