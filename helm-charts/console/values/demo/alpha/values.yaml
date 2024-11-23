@@ -1,0 +1,10 @@
+# values for DEMO alpha console
+
+replicas: 3
+
+backup:
+  enabled: true
+
+serverHost=artemis-main.alpha-xibus-artemis
+port=62627
+

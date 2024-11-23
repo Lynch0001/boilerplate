@@ -1,23 +1,152 @@
 #!/bin/sh
 
-REPO_PATH="/Users/timothylynch/workspace/boilerplate"
-TARGET_BASE_PATH="helm-charts/archiver/values/demo"
-#TARGET_PROJECT="bravo"
+TARGET_PROJECT=$1
 
-cp $REPO_PATH/$TARGET_BASE_PATH/alpha/values.yaml $REPO_PATH/$TARGET_BASE_PATH/alpha-template/values.yaml
-sed -i '' 's\alpha\{{ .Project }}\g' $REPO_PATH/$TARGET_BASE_PATH/alpha-template/values.yaml
-./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url $REPO_PATH/$TARGET_BASE_PATH/alpha-template/ --output-folder $REPO_PATH/$TARGET_BASE_PATH/$1 --non-interactive
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/console --output-folder $TARGET_BASE_PATH/console/values/$1/$2 --non-interactive
+# Archiver
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/deliver --output-folder $TARGET_BASE_PATH/deliver/values/$1/$2 --non-interactive
+
+SERVICE="archiver"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .ArchiverVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .ArchiverVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .ArchiverVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/inbound --output-folder $TARGET_BASE_PATH/inbound/values/$1/$2 --non-interactive
+# Console
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/parser --output-folder $TARGET_BASE_PATH/parser/values/$1/$2 --non-interactive
+SERVICE="console"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .ConsoleVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/preparser --output-folder $TARGET_BASE_PATH/preparser/values/$1/$2 --non-interactive
+# Datastore
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/resubmit --output-folder $TARGET_BASE_PATH/resubmit/values/$1/$2 --non-interactive
+SERVICE="datastore"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .DatastoreVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
 #
-#./boilerplate_darwin_amd64 --var-file build_vars.yml --template-url boilerplate_templates/router --output-folder $TARGET_BASE_PATH/router/values/$1/$2 --non-interactive
+# Deliver
+#
+SERVICE="deliver"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .DeliverVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .DeliverVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .DeliverVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# Inbound
+#
+SERVICE="inbound"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .InboundVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .InboundVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .InboundVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# Client
+#
+SERVICE="client"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .ClientVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .ClientVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .ClientVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# Ingester
+#
+SERVICE="ingester"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .IngesterVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# parser
+#
+SERVICE="parser"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .ParserVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .ParserVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .ParserVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# preparser
+#
+SERVICE="preparser"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .PreparserVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .PreparserVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .PreparserVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# resubmit
+#
+SERVICE="resubmit"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .ResubmitVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .ResubmitVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .ResubmitVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# router
+#
+SERVICE="router"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .RouterVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/minReplicas: .*/minReplicas: {{ .RouterVariables.scalerMin }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/maxReplicas: .*/maxReplicas: {{ .RouterVariables.scalerMax }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml
+
+#
+# twinning
+#
+SERVICE="twinning"
+TARGET_BASE_PATH="helm-charts/$SERVICE/values/demo"
+cp $TARGET_BASE_PATH/alpha/values.yaml $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/alpha/{{ .Project }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+sed -i 's/replicas: .*/replicas: {{ .TwinningVariables.replicas }}/g' $TARGET_BASE_PATH/alpha-template/values.yaml
+./boilerplate_linux_amd64 --var-file build_vars.yml --template-url ./$REPO_PATH/$TARGET_BASE_PATH/alpha-template --output-folder $TARGET_BASE_PATH/$TARGET_PROJECT --non-interactive
+rm $TARGET_BASE_PATH/alpha-template/values.yaml

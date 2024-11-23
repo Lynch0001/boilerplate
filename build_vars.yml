@@ -8,14 +8,17 @@ ArchiverVariables:
   scalerMin: 1
   scalerMax: 1
 
+ClientVariables:
+  replicas: 1
+  scalerMin: 1
+  scalerMax: 1
+
 ConsoleVariables:
   replicas: 1
   deployBackup: false
 
 DatastoreVariables:
   replicas: 1
-  scalerMin: 1
-  scalerMax: 1
 
 DeliverVariables:
   replicas: 1
@@ -26,6 +29,9 @@ InboundVariables:
   replicas: 1
   scalerMin: 1
   scalerMax: 1
+
+IngesterVariables:
+  replicas: 1
 
 ParserVariables:
   replicas: 1
@@ -46,3 +52,6 @@ RouterVariables:
   replicas: 1
   scalerMin: 1
   scalerMax: 1
+
+TwinningVariables:
+  replicas: 1

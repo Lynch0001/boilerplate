@@ -1,0 +1,10 @@
+# values for DEMO alpha preparser
+
+replicas: 6
+
+serverHost=artemis-main.alpha-xibus-artemis
+port=62627
+
+keda:
+  minReplicas: 1
+  maxReplicas: 18

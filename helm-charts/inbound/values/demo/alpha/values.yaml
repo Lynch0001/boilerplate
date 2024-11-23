@@ -1,0 +1,7 @@
+# values for DEMO alpha inbound
+
+replicas: 6
+
+serverHost=artemis-main.alpha-xibus-artemis
+port=62627
+

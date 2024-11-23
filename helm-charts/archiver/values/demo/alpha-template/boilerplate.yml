@@ -1,3 +1,12 @@
+#
+# Archiver boilerplate file
+#
+
+#
+# This file is used to define variables and default values for this microservices
+# Variable injected values for new project builds are provided by build_vars.yaml
+#
+
 variables:
   - name: Project
     description: The project name to create
