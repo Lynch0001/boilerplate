@@ -1,7 +1,0 @@
-# values for DEMO {{ .Project }} deliver
-
-replicas: {{ .DeliverVariables.replicas }}
-
-serverHost=artemis-main.{{ .Project }}-xibus-artemis
-port=62627
-

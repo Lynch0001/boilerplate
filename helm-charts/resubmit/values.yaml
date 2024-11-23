@@ -1,0 +1,7 @@
+# values for DEMO {{ .Project }} resubmit
+
+replicas: {{ .ResubmitVariables.replicas }}
+
+serverHost=artemis-main.{{ .Project }}-xibus-artemis
+port=62627
+

@@ -1,7 +1,0 @@
-# values for DEMO {{ .Project }} inbound
-
-replicas: {{ .InboundVariables.replicas }}
-
-serverHost=artemis-main.{{ .Project }}-xibus-artemis
-port=62627
-

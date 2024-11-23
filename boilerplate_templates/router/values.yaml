@@ -1,7 +1,0 @@
-# values for DEMO {{ .Project }} router
-
-replicas: {{ .RouterVariables.replicas }}
-
-serverHost=artemis-main.{{ .Project }}-xibus-artemis
-port=62627
-

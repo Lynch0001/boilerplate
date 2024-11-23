@@ -1,7 +1,0 @@
-# values for DEMO {{ .Project }} archiver
-
-replicas: {{ .ArchiverVariables.replicas }}
-
-serverHost=artemis-main.{{ .Project }}-xibus-artemis
-port=62627
-
