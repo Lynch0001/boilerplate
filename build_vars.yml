@@ -55,3 +55,12 @@ RouterVariables:
 
 TwinningVariables:
   replicas: 1
+
+OtiVariables:
+  replicas: 1
+
+OtiApiVariables:
+  replicas: 1
+
+TwingateVariables:
+  replicas: 1
