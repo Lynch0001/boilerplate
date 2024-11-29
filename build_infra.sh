@@ -103,9 +103,13 @@ rm $DEMO_BASE_PATH/alpha-template/$SERVICE/queue-managers/$QUEUE_MANAGER/values/
 
 #
 # Networking
-# SFTP
-# MQ
+# TODO SFTP - MQ PORT Mappings
 #
+SERVICE="networking"
+cp $DEMO_BASE_PATH/alpha/$SERVICE/terragrunt.hcl $DEMO_BASE_PATH/alpha-template/$SERVICE/terragrunt.hcl
+sed -i 's/alpha/{{ .Project }}/g' $DEMO_BASE_PATH/alpha-template/$SERVICE/terragrunt.hcl
+$BOILERPLATE_PATH/boilerplate_linux_amd64 --var-file build_infra_vars.yml --template-url ./$DEMO_BASE_PATH/alpha-template/$SERVICE --output-folder $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE --non-interactive
+rm $DEMO_BASE_PATH/alpha-template/$SERVICE/terragrunt.hcl
 
 #
 # Keda Secret
@@ -117,6 +121,31 @@ $BOILERPLATE_PATH/boilerplate_linux_amd64 --var-file build_infra_vars.yml --temp
 mkdir $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE/secret
 cp $DEMO_BASE_PATH/alpha/$SERVICE/secret/secrets.yaml $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE/secret/secrets.yaml
 rm $DEMO_BASE_PATH/alpha-template/$SERVICE/terragrunt.hcl
+
+#
+# Keycloak
+#
+# secrets directory
+SERVICE_MAIN="keycloak"
+mkdir $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE
+
+#
+# Keycloak - Console
+#
+SERVICE_SUB="console"
+cp $DEMO_BASE_PATH/alpha/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
+sed -i 's/alpha/{{ .Project }}/g' $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
+$BOILERPLATE_PATH/boilerplate_linux_amd64 --var-file build_infra_vars.yml --template-url ./$DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB --output-folder $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE_MAIN/$SERVICE_SUB --non-interactive
+rm $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
+
+#
+# Keycloak - OTI
+#
+SERVICE_SUB="oti"
+cp $DEMO_BASE_PATH/alpha/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
+sed -i 's/alpha/{{ .Project }}/g' $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
+$BOILERPLATE_PATH/boilerplate_linux_amd64 --var-file build_infra_vars.yml --template-url ./$DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB --output-folder $DEMO_BASE_PATH/$TARGET_PROJECT/$SERVICE_MAIN/$SERVICE_SUB --non-interactive
+rm $DEMO_BASE_PATH/alpha-template/$SERVICE_MAIN/$SERVICE_SUB/terragrunt.hcl
 
 #
 # Xib Secrets

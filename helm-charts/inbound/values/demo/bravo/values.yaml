@@ -1,7 +1,0 @@
-# values for DEMO bravo inbound
-
-replicas: 1
-
-serverHost=artemis-main.bravo-xibus-artemis
-port=62627
-
