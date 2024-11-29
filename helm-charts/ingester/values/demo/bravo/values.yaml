@@ -1,0 +1,7 @@
+# values for DEMO bravo ingester
+
+replicas: 1
+
+serverHost=artemis-main.bravo-xibus-artemis
+port=62627
+

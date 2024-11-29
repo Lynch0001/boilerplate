@@ -1,0 +1,10 @@
+# values for DEMO bravo console
+
+replicas: 1
+
+backup:
+  enabled: true
+
+serverHost=artemis-main.bravo-xibus-artemis
+port=62627
+
